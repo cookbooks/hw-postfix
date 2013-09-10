@@ -15,6 +15,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+case platform
+when "freebsd"
+  default['postfix']['confdir']     = "/usr/local/etc"
+  default['postfix']['rootgroup']   = "wheel"
+else
+  default['postfix']['confdir']     = "/etc"
+  default['postfix']['rootgroup']   = "root"
+end
+
 default['postfix']['mail_type']  = "client"
 default['postfix']['myhostname'] = node['fqdn']
 default['postfix']['mydomain']   = node['domain']
@@ -26,9 +36,9 @@ default['postfix']['multi_environment_relay'] = false
 
 default['postfix']['smtpd_use_tls'] = "yes"
 default['postfix']['smtp_sasl_auth_enable'] = "no"
-default['postfix']['smtp_sasl_password_maps']    = "hash:/etc/postfix/sasl_passwd"
+default['postfix']['smtp_sasl_password_maps']    = "hash:#{node['postfix']['confdir']}/postfix/sasl_passwd"
 default['postfix']['smtp_sasl_security_options'] = "noanonymous"
-default['postfix']['smtp_tls_cafile'] = "/etc/postfix/cacert.pem"
+default['postfix']['smtp_tls_cafile'] = "#{node['postfix']['confdir']}/postfix/cacert.pem"
 default['postfix']['smtp_use_tls']    = "yes"
 default['postfix']['smtp_sasl_user_name'] = ""
 default['postfix']['smtp_sasl_passwd']    = ""
