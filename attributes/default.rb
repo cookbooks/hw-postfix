@@ -19,10 +19,8 @@
 case platform
 when "freebsd"
   default['postfix']['confdir']     = "/usr/local/etc"
-  default['postfix']['rootgroup']   = "wheel"
 else
   default['postfix']['confdir']     = "/etc"
-  default['postfix']['rootgroup']   = "root"
 end
 
 default['postfix']['mail_type']  = "client"

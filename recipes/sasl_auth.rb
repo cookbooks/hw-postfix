@@ -32,7 +32,7 @@ end
 template "#{node['postfix']['confdir']}/postfix/sasl_passwd" do
   source "sasl_passwd.erb"
   owner "root"
-  group node['postfix']['rootgroup']
+  group node['root_group']
   mode 0400
   notifies :run, resources(:execute => "postmap-sasl_passwd"), :immediately
   notifies :restart, resources(:service => "postfix")

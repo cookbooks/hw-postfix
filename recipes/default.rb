@@ -51,7 +51,7 @@ end
   template "#{node['postfix']['confdir']}/postfix/#{cfg}.cf" do
     source "#{cfg}.cf.erb"
     owner "root"
-    group node['postfix']['rootgroup']
+    group node['root_group']
     mode 0644
     notifies :restart, resources(:service => "postfix")
   end
