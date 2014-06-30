@@ -25,14 +25,14 @@
 end
 
 execute "postmap-sasl_passwd" do
-  command "postmap /etc/postfix/sasl_passwd"
+  command "postmap #{node['postfix']['confdir']}/postfix/sasl_passwd"
   action :nothing
 end
 
-template "/etc/postfix/sasl_passwd" do
+template "#{node['postfix']['confdir']}/postfix/sasl_passwd" do
   source "sasl_passwd.erb"
   owner "root"
-  group "root"
+  group node['root_group']
   mode 0400
   notifies :run, resources(:execute => "postmap-sasl_passwd"), :immediately
   notifies :restart, resources(:service => "postfix")

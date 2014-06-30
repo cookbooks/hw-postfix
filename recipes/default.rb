@@ -48,10 +48,10 @@ when "redhat", "centos", "amazon", "scientific"
 end
 
 %w{main master}.each do |cfg|
-  template "/etc/postfix/#{cfg}.cf" do
+  template "#{node['postfix']['confdir']}/postfix/#{cfg}.cf" do
     source "#{cfg}.cf.erb"
     owner "root"
-    group "root"
+    group node['root_group']
     mode 0644
     notifies :restart, resources(:service => "postfix")
   end
