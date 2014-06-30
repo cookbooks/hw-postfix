@@ -47,7 +47,6 @@ ftp: 		root
 ftp-bugs: 	ftp
 
 # Custom aliases
-<% node[:postfix][:aliases].each do |name, value| %>
-<%= name %>:  "<%= value %>"
-<% end unless node[:postfix][:aliases].nil? %>
-
+<% node['postfix']['aliases'].each do |name, value| %>
+<%= name %>: <%= [value].flatten.map{|x| %Q("#{x}")}.join(', ') %>
+<% end unless node['postfix']['aliases'].nil? %>
